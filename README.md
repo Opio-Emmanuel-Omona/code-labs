@@ -13,7 +13,7 @@ I used [marvel app](https://marvelapp.com/) because
 * no account is needed to view the mock up design
 * it contains default layouts that can be added and edited accordingly
 
-![wireframe](wireframes/wireframe.gif)
+<img src="wireframes/wireframe.gif" height="50%" width="50%" />
 
 
 ### Color Palette
