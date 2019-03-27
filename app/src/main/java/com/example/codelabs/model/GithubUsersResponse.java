@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class GithubUsersResponse {
 
-    ArrayList<GithubUsers> people;
+    ArrayList<GithubUsers> users;
 
     public GithubUsersResponse() {
-        people = new ArrayList<GithubUsers>();
+        users = new ArrayList<GithubUsers>();
     }
 
     public static GithubUsersResponse parseJSON(String response) {
@@ -21,6 +21,10 @@ public class GithubUsersResponse {
         Gson gson = gsonBuilder.create();
         GithubUsersResponse githubUsersResponse = gson.fromJson(response, GithubUsersResponse.class);
         return githubUsersResponse;
+    }
+
+    public ArrayList<GithubUsers> getGithubUsersResponse() {
+        return this.users;
     }
 
 }
