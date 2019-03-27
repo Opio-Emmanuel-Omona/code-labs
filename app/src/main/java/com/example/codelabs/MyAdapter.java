@@ -7,15 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.codelabs.model.GithubUsers;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private ArrayList<Person> personArray;
+    private ArrayList<GithubUsers> githubUsersArray;
     private OnListListener myOnListListener;
 
 
-    public MyAdapter(ArrayList<Person> person, OnListListener onListListener) {
-        this.personArray = person;
+    public MyAdapter(ArrayList<GithubUsers> githubUsers, OnListListener onListListener) {
+        this.githubUsersArray = githubUsers;
         this.myOnListListener = onListListener;
     }
 
@@ -28,16 +30,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Person person;
-        person = personArray.get(position);
-        holder.username.setText(person.getUsername());
-        holder.image.setImageResource(person.getProfileImage());
+        GithubUsers githubUsers;
+        githubUsers = githubUsersArray.get(position);
+        holder.username.setText(githubUsers.getUsername());
+        holder.image.setImageResource(githubUsers.getProfileImage());
 
     }
 
     @Override
     public int getItemCount() {
-        return personArray.size();
+        return githubUsersArray.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
