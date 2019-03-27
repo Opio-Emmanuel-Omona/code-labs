@@ -1,10 +1,15 @@
-package com.example.codelabs;
+package com.example.codelabs.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.codelabs.MyAdapter;
+import com.example.codelabs.OnListListener;
+import com.example.codelabs.R;
+import com.example.codelabs.model.GithubUsers;
 
 import java.util.ArrayList;
 
@@ -14,8 +19,8 @@ public class MainActivity extends AppCompatActivity implements OnListListener {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
-    private ArrayList<Person> personArray;
-    private Person person;
+    private ArrayList<GithubUsers> githubUsersArray;
+    private GithubUsers githubUsers;
 
 
     @Override
@@ -30,31 +35,23 @@ public class MainActivity extends AppCompatActivity implements OnListListener {
 
         Integer [] images = {R.drawable.emmanuel, R.drawable.moses};
 
-        personArray = new ArrayList<Person>();
-        person = new Person();
-        person.setUsername("Emmanuel");
-        person.setOrganisation("Andela");
-        person.setProfileLink("http://github.com/opio-emmanuel-omona");
-        person.setProfileImage(images[0]);
-        personArray.add(person);
+        githubUsersArray = new ArrayList<GithubUsers>();
+        githubUsers = new GithubUsers("Emmanuel", "Andela", "http://github.com/opio-emmanuel-omona", images[0]);
+        githubUsersArray.add(githubUsers);
 
-        person = new Person();
-        person.setUsername("Moses");
-        person.setOrganisation("Andela");
-        person.setProfileLink("http://github.com/mosesk");
-        person.setProfileImage(images[1]);
-        personArray.add(person);
+        githubUsers = new GithubUsers("Moses", "Andela", "http://github.com/mosesk", images[1]);
+        githubUsersArray.add(githubUsers);
 
-        mAdapter = new MyAdapter(personArray, this);
+        mAdapter = new MyAdapter(githubUsersArray, this);
         recyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void onItemClick(int position) {
-        personArray.get(position);
+        githubUsersArray.get(position);
         Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("Username", personArray.get(position).getUsername());
-        intent.putExtra("ProfileImage", personArray.get(position).getProfileImage());
+        intent.putExtra("Username", githubUsersArray.get(position).getUsername());
+        intent.putExtra("ProfileImage", githubUsersArray.get(position).getProfileImage());
         startActivity(intent);
     }
 }

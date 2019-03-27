@@ -1,9 +1,11 @@
-package com.example.codelabs;
+package com.example.codelabs.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.codelabs.R;
 
 public class DetailActivity extends AppCompatActivity {
 
