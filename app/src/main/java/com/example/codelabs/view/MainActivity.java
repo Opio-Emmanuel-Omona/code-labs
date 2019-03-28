@@ -6,21 +6,20 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.codelabs.MyAdapter;
-import com.example.codelabs.OnListListener;
+import com.example.codelabs.adapter.GithubAdapter;
 import com.example.codelabs.R;
 import com.example.codelabs.model.GithubUsers;
+import com.example.codelabs.presenter.GithubPresenter;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements OnListListener {
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter mAdapter;
     private ArrayList<GithubUsers> githubUsersArray;
-    private GithubUsers githubUsers;
+    private GithubPresenter githubPresenter;
 
 
     @Override
@@ -28,30 +27,34 @@ public class MainActivity extends AppCompatActivity implements OnListListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initRecyclerView();
+        githubPresenter = new GithubPresenter(new GithubUsersView() {
+            @Override
+            public void readyUsers(ArrayList<GithubUsers> githubUsers) {
+                recyclerView.setAdapter(new GithubAdapter(githubUsers, new OnListListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        clicked(position);
+                    }
+                }));
+            }
+        });
+        githubPresenter.getUsers();
+    }
+
+    public void initRecyclerView() {
         recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        Integer [] images = {R.drawable.emmanuel, R.drawable.moses};
-
-        githubUsersArray = new ArrayList<GithubUsers>();
-        githubUsers = new GithubUsers("Emmanuel", "Andela", "http://github.com/opio-emmanuel-omona", images[0]);
-        githubUsersArray.add(githubUsers);
-
-        githubUsers = new GithubUsers("Moses", "Andela", "http://github.com/mosesk", images[1]);
-        githubUsersArray.add(githubUsers);
-
-        mAdapter = new MyAdapter(githubUsersArray, this);
-        recyclerView.setAdapter(mAdapter);
     }
 
-    @Override
-    public void onItemClick(int position) {
+    public void clicked(int position) {
         githubUsersArray.get(position);
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra("Username", githubUsersArray.get(position).getUsername());
         intent.putExtra("ProfileImage", githubUsersArray.get(position).getProfileImage());
         startActivity(intent);
     }
+
 }

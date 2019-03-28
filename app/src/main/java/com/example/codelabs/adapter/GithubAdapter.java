@@ -1,4 +1,4 @@
-package com.example.codelabs;
+package com.example.codelabs.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,16 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.codelabs.view.OnListListener;
+import com.example.codelabs.R;
 import com.example.codelabs.model.GithubUsers;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHolder> {
     private ArrayList<GithubUsers> githubUsersArray;
     private OnListListener myOnListListener;
 
 
-    public MyAdapter(ArrayList<GithubUsers> githubUsers, OnListListener onListListener) {
+    public GithubAdapter(ArrayList<GithubUsers> githubUsers, OnListListener onListListener) {
         this.githubUsersArray = githubUsers;
         this.myOnListListener = onListListener;
     }
@@ -33,7 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         GithubUsers githubUsers;
         githubUsers = githubUsersArray.get(position);
         holder.username.setText(githubUsers.getUsername());
-        holder.image.setImageResource(githubUsers.getProfileImage());
+        Picasso.get().load(githubUsers.getProfileImage()).into(holder.image);
 
     }
 
