@@ -15,9 +15,9 @@ public class GithubUsers {
     private String profileLink;
 
     @SerializedName("avatar_url")
-    private Integer profileImage;
+    private String profileImage;
 
-    public GithubUsers(String username, String organisation, String profileLink, Integer profileImage) {
+    public GithubUsers(String username, String organisation, String profileLink, String profileImage) {
         this.username = username;
         this.organisation = organisation;
         this.profileLink = profileLink;
@@ -32,5 +32,5 @@ public class GithubUsers {
 
     public String getProfileLink() {  return this.profileLink;  }
 
-    public Integer getProfileImage() {  return this.profileImage;  }
+    public String getProfileImage() {  return this.profileImage;  }
 }
