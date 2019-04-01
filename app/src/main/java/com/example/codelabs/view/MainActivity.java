@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<GithubUsers> githubUsersArray;
     private GithubPresenter githubPresenter;
 
 
@@ -50,10 +49,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clicked(int position) {
-        githubUsersArray.get(position);
         Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("Username", githubUsersArray.get(position).getUsername());
-        intent.putExtra("ProfileImage", githubUsersArray.get(position).getProfileImage());
+        intent.putExtra("Username", GithubPresenter.result.get(position).getUsername());
+        intent.putExtra("ProfileImage", GithubPresenter.result.get(position).getProfileImage());
         startActivity(intent);
     }
 

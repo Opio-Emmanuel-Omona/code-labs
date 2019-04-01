@@ -11,7 +11,7 @@ public class GithubUsers {
     @SerializedName("company")
     private String organisation;
 
-    @SerializedName("url")
+    @SerializedName("html_url")
     private String profileLink;
 
     @SerializedName("avatar_url")
@@ -25,7 +25,6 @@ public class GithubUsers {
 
     }
 
-
     public String getUsername() {  return this.username;  }
 
     public String getOrganisation() {  return this.organisation;  }
@@ -33,4 +32,5 @@ public class GithubUsers {
     public String getProfileLink() {  return this.profileLink;  }
 
     public String getProfileImage() {  return this.profileImage;  }
+
 }
