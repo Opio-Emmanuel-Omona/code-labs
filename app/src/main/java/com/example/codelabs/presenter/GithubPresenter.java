@@ -17,6 +17,7 @@ public class GithubPresenter {
 
     private GithubService githubService;
     private GithubUsersView githubUsersView;
+    public static ArrayList<GithubUsers> result;
 
     public GithubPresenter(GithubUsersView githubUsersView) {
         this.githubUsersView = githubUsersView;
@@ -36,7 +37,7 @@ public class GithubPresenter {
                         GithubUsersResponse githubUsersResponse = response.body();
 
                         if(githubUsersResponse != null && githubUsersResponse.getGithubUsersResponse() != null) {
-                            ArrayList<GithubUsers> result = githubUsersResponse.getGithubUsersResponse();
+                            result = githubUsersResponse.getGithubUsersResponse();
                             githubUsersView.readyUsers(result);
                         }
                     }
@@ -47,4 +48,5 @@ public class GithubPresenter {
                     }
                 });
     }
+
 }
