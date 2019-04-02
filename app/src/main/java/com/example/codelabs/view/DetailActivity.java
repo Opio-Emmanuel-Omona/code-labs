@@ -1,7 +1,10 @@
 package com.example.codelabs.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +20,12 @@ public class DetailActivity extends AppCompatActivity {
     private TextView organisation;
     private TextView profileLink;
     private ImageView profileImage;
+    private Button shareButton;
     private GithubProfilePresenter githubProfilePresenter;
     private String user;
     private String image;
+    private String org;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class DetailActivity extends AppCompatActivity {
         organisation = findViewById(R.id.activity_detail_organisation);
         profileLink = findViewById(R.id.activity_detail_profile_link);
         profileImage = findViewById(R.id.activity_detail_profile_image);
+        shareButton = findViewById(R.id.share_button);
 
         user = getIntent().getExtras().getString("Username");
         image = getIntent().getExtras().getString("ProfileImage");
@@ -40,13 +47,25 @@ public class DetailActivity extends AppCompatActivity {
         githubProfilePresenter = new GithubProfilePresenter(new GithubProfileView() {
             @Override
             public void readyProfile(GithubUsers result) {
-                String org = result.getOrganisation();
+                org = result.getOrganisation();
+                url = result.getProfileLink();
 
                 if(org != null) {
                     organisation.setText(org);
                 }
 
-                profileLink.setText(result.getProfileLink());
+                profileLink.setText(url);
+            }
+        });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String content = "Checkout this awesome developer @" + user + ", " + url + ".";
+                intent.putExtra(Intent.EXTRA_TEXT, content);
+                startActivity(Intent.createChooser(intent, "Share Using"));
             }
         });
 
