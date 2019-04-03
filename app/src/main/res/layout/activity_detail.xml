@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".view.DetailActivity"
-android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/colorPrimary">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/activity_detail_profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/ic_launcher"/>
-
-        <TextView
-            android:id="@+id/activity_detail_username"
-            android:layout_marginTop="25dp"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/activity_detail_profile_image"
-            android:text="Username"
-            android:textColor="@color/colorIcons"
-            android:textSize="21sp"/>
-
-    </RelativeLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.DetailActivity"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginTop="45dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/colorPrimary">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/activity_detail_profile_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/activity_detail_username"
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_detail_profile_image"
+                android:text="Username"
+                android:textColor="@color/colorIcons"
+                android:textSize="21sp"/>
+
+        </RelativeLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_gravity="center"
             android:layout_marginTop="45dp">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Organisation: "
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="21sp"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="45dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Organisation: "
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="21sp"/>
+
+                <TextView
+                    android:id="@+id/activity_detail_organisation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="none"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="21sp"/>
+
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/activity_detail_organisation"
+                android:id="@+id/activity_detail_profile_link"
+                android:layout_marginTop="45dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="none"
+                android:text="Github profile link"
+                android:autoLink="web"
                 android:textColor="@color/colorSecondaryText"
-                android:textSize="21sp"/>
+                android:textSize="16sp"/>
 
+            <Button
+                android:id="@+id/share_button"
+                android:textColor="@color/colorIcons"
+                android:layout_marginTop="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:text="SHARE"/>
 
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/activity_detail_profile_link"
-            android:layout_marginTop="45dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Github profile link"
-            android:autoLink="web"
-            android:textColor="@color/colorSecondaryText"
-            android:textSize="16sp"/>
-
-        <Button
-            android:id="@+id/share_button"
-            android:textColor="@color/colorIcons"
-            android:layout_marginTop="45dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:text="SHARE"/>
-
     </LinearLayout>
 
-</LinearLayout>
+
+</ScrollView>
