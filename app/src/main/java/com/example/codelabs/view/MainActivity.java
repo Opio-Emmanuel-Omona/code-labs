@@ -11,15 +11,12 @@ import com.example.codelabs.R;
 import com.example.codelabs.model.GithubUsers;
 import com.example.codelabs.presenter.GithubPresenter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private GithubPresenter githubPresenter;
-
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initRecyclerView();
-        githubPresenter = new GithubPresenter(new GithubUsersView() {
+        GithubPresenter githubPresenter = new GithubPresenter(new GithubUsersView() {
             @Override
-            public void readyUsers(ArrayList<GithubUsers> githubUsers) {
+            public void readyUsers(List<GithubUsers> githubUsers) {
                 recyclerView.setAdapter(new GithubAdapter(githubUsers, new OnListListener() {
                     @Override
                     public void onItemClick(int position) {
@@ -42,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initRecyclerView() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
     }
 

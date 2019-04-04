@@ -2,18 +2,14 @@ package com.example.codelabs.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class GithubUsersResponse {
 
     @SerializedName("items")
-    ArrayList<GithubUsers> users;
+    List<GithubUsers> users;
 
-    public GithubUsersResponse() {
-        users = new ArrayList<GithubUsers>();
-    }
-
-    public ArrayList<GithubUsers> getGithubUsersResponse() {
+    public List<GithubUsers> getGithubUsersResponse() {
         return this.users;
     }
 

@@ -27,7 +27,7 @@
             android:layout_toRightOf="@id/profile_image"
             android:layout_centerVertical="true"
             android:text="Username"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:textColor="@color/colorPrimaryText" />
 
         <View

@@ -6,16 +6,16 @@ import com.google.gson.annotations.SerializedName;
 public class GithubUsers {
 
     @SerializedName("login")
-    private String username;
+    final String username;
 
     @SerializedName("company")
-    private String organisation;
+    final String organisation;
 
     @SerializedName("html_url")
-    private String profileLink;
+    final String profileLink;
 
     @SerializedName("avatar_url")
-    private String profileImage;
+    final String profileImage;
 
     public GithubUsers(String username, String organisation, String profileLink, String profileImage) {
         this.username = username;
