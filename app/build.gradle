@@ -13,6 +13,7 @@ apply plugin: 'jacoco'
 apply from: "$project.rootDir/tools/findbugs.gradle"
 apply from: "$project.rootDir/tools/checkstyle.gradle"
 apply from: "$project.rootDir/tools/pmd.gradle"
+apply from: rootProject.file('gradle/install-git-hooks.gradle')
 
 jacoco {
     toolVersion = "0.8.3"

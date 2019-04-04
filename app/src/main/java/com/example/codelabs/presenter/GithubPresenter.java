@@ -7,7 +7,7 @@ import com.example.codelabs.model.GithubUsersResponse;
 import com.example.codelabs.service.GithubService;
 import com.example.codelabs.view.GithubUsersView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,9 +15,9 @@ import retrofit2.Response;
 
 public class GithubPresenter {
 
-    private GithubService githubService;
-    private GithubUsersView githubUsersView;
-    public static ArrayList<GithubUsers> result;
+    GithubService githubService;
+    final GithubUsersView githubUsersView;
+    public static List<GithubUsers> result;
 
     public GithubPresenter(GithubUsersView githubUsersView) {
         this.githubUsersView = githubUsersView;

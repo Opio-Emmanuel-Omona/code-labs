@@ -5,7 +5,6 @@ import android.util.Log;
 import com.example.codelabs.model.GithubUsers;
 import com.example.codelabs.service.GithubService;
 import com.example.codelabs.view.GithubProfileView;
-import com.example.codelabs.view.GithubUsersView;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -12,14 +12,14 @@ import com.example.codelabs.R;
 import com.example.codelabs.model.GithubUsers;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHolder> {
-    private ArrayList<GithubUsers> githubUsersArray;
-    private OnListListener myOnListListener;
+    final List<GithubUsers> githubUsersArray;
+    final OnListListener myOnListListener;
 
 
-    public GithubAdapter(ArrayList<GithubUsers> githubUsers, OnListListener onListListener) {
+    public GithubAdapter(List<GithubUsers> githubUsers, OnListListener onListListener) {
         this.githubUsersArray = githubUsers;
         this.myOnListListener = onListListener;
     }
@@ -27,8 +27,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v, myOnListListener);
-        return vh;
+        return new MyViewHolder(v, myOnListListener);
     }
 
     @Override
