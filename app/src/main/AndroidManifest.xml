@@ -13,11 +13,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.DetailActivity"
-            android:parentActivityName=".view.MainActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"></activity>
+            android:parentActivityName=".view.MainActivity"></activity>
         <activity
-            android:name=".view.MainActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation">
+            android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
