@@ -1,6 +1,9 @@
 package com.example.codelabs.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,37 +15,50 @@ import com.example.codelabs.model.GithubUsers;
 import com.example.codelabs.presenter.GithubProfilePresenter;
 import com.squareup.picasso.Picasso;
 
+
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView username;
     TextView organisation;
     TextView profileLink;
     ImageView profileImage;
+    GithubUsers githubUsers;
+    ProgressDialog progressDialog;
     String url;
     String user;
+    String image;
+    String org;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         initDetail();
-        extras();
 
+        if(savedInstanceState != null) {
+            githubUsers = savedInstanceState.getParcelable("user");
+            loadProfile(githubUsers);
+        } else {
+            fetchProfile();
+        }
+
+    }
+
+    private void fetchProfile() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading Profile");
+        progressDialog.setMessage("Please Wait");
+        progressDialog.show();
         GithubProfilePresenter githubProfilePresenter = new GithubProfilePresenter(new GithubProfileView() {
             @Override
             public void readyProfile(GithubUsers result) {
-                String org = result.getOrganisation();
-                url = result.getProfileLink();
+                githubUsers = result;
+                loadProfile(githubUsers);
 
-                if(org != null) {
-                    organisation.setText(org);
-                }
-
-                profileLink.setText(url);
             }
         });
-
+        extras();
         githubProfilePresenter.getUserProfile(user);
     }
 
@@ -62,10 +78,37 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     void extras() {
-        String image = getIntent().getExtras().getString("ProfileImage");
+        image = getIntent().getExtras().getString("ProfileImage");
         user = getIntent().getExtras().getString("Username");
+    }
+
+    void loadProfile(GithubUsers githubUsers) {
+        user = githubUsers.getUsername();
+        url = githubUsers.getProfileLink();
+        org = githubUsers.getOrganisation();
+        image = githubUsers.getProfileImage();
 
         username.setText(user);
+        profileLink.setText(url);
         Picasso.get().load(image).into(profileImage);
+        if(org != null) {
+            organisation.setText(org);
+        }
+
+        if(progressDialog != null) {
+            progressDialog.cancel();
+        }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("user", githubUsers);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstance) {
+        githubUsers = savedInstance.getParcelable("user");
+    }
+
 }
