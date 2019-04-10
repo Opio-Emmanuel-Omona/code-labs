@@ -59,9 +59,15 @@ dependencies {
     }
     implementation "com.squareup.retrofit2:retrofit:$config.retrofit2Ver"
     implementation "de.hdodenhof:circleimageview:$config.circleImageVer"
-    testImplementation "junit:junit:$config.junitVer"
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$config.idlingResourceVer"
     api "com.android.support:design:$config.supportDesignVer"
     api "com.squareup.retrofit2:converter-gson:$config.gsonConverterVer"
+
+    // test dependencies
+    testImplementation "junit:junit:$config.junitVer"
     androidTestImplementation "com.android.support.test:runner:$config.testRunnerVer"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$config.espressoVer"
+    androidTestImplementation "com.android.support.test:rules:$config.testRulesVer"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$config.espressoCoreVer"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$config.espressoContribVer"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$config.espressoIntentsVer"
 }

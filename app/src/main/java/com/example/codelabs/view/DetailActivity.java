@@ -1,13 +1,15 @@
 package com.example.codelabs.view;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.codelabs.R;
@@ -23,11 +25,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     TextView profileLink;
     ImageView profileImage;
     GithubUsers githubUsers;
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
+    LinearLayout detail;
     String url;
     String user;
     String image;
     String org;
+    CountingIdlingResource countingIdlingResource = new CountingIdlingResource("Main");
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,10 +50,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void fetchProfile() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading Profile");
-        progressDialog.setMessage("Please Wait");
-        progressDialog.show();
         GithubProfilePresenter githubProfilePresenter = new GithubProfilePresenter(new GithubProfileView() {
             @Override
             public void readyProfile(GithubUsers result) {
@@ -59,6 +59,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
         extras();
+        countingIdlingResource.increment();
         githubProfilePresenter.getUserProfile(user);
     }
 
@@ -75,11 +76,18 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         organisation = findViewById(R.id.activity_detail_organisation);
         profileLink = findViewById(R.id.activity_detail_profile_link);
         profileImage = findViewById(R.id.activity_detail_profile_image);
+        progressBar = findViewById(R.id.progress_bar2);
+        detail = findViewById(R.id.detail);
+        detail.setVisibility(View.GONE);
     }
 
     void extras() {
-        image = getIntent().getExtras().getString("ProfileImage");
-        user = getIntent().getExtras().getString("Username");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null)
+        {
+            image = getIntent().getExtras().getString("ProfileImage");
+            user = getIntent().getExtras().getString("Username");
+        }
     }
 
     void loadProfile(GithubUsers githubUsers) {
@@ -94,10 +102,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if(org != null) {
             organisation.setText(org);
         }
-
-        if(progressDialog != null) {
-            progressDialog.cancel();
-        }
+        progressBar.setVisibility(View.GONE);
+        detail.setVisibility(View.VISIBLE);
+        countingIdlingResource.decrement();
     }
 
     @Override
@@ -109,6 +116,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onRestoreInstanceState(Bundle savedInstance) {
         githubUsers = savedInstance.getParcelable("user");
+    }
+
+    @VisibleForTesting
+    public CountingIdlingResource getCountingIdlingResource(){
+        return countingIdlingResource;
     }
 
 }

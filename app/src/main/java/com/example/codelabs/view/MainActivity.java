@@ -1,14 +1,17 @@
 package com.example.codelabs.view;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Parcelable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.codelabs.adapter.GithubAdapter;
 import com.example.codelabs.R;
@@ -23,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
+    ProgressBar progressBar;
     private List<? extends GithubUsers> githubUsersList;
     Parcelable state;
-    ProgressDialog progressDialog;
+    CountingIdlingResource countingIdlingResource = new CountingIdlingResource("Main");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +47,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Fetching Users");
-        progressDialog.setMessage("Please wait");
-        progressDialog.show();
         GithubPresenter githubPresenter = new GithubPresenter(new GithubUsersView() {
             @Override
             public void readyUsers(List<GithubUsers> githubUsers) {
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 loadData(githubUsers);
             }
         });
+        countingIdlingResource.increment();
         githubPresenter.getUsers();
     }
 
@@ -65,13 +66,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
         swipeRefreshLayout.setRefreshing(false);
-        if(progressDialog != null) {
-            progressDialog.cancel();
-        }
+
+        progressBar.setVisibility(View.GONE);
+        countingIdlingResource.decrement();
+
     }
 
     public void initRecyclerView() {
         recyclerView = findViewById(R.id.my_recycler_view);
+        progressBar = findViewById(R.id.progress_bar1);
         recyclerView.setHasFixedSize(true);
         configChanged();
     }
@@ -120,9 +123,15 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (state != null) {
             recyclerView.getLayoutManager().onRestoreInstanceState(state);
+            countingIdlingResource.increment();
             loadData((List<GithubUsers>) githubUsersList);
 
         }
+    }
+
+    @VisibleForTesting
+    public CountingIdlingResource getCountingIdlingResource(){
+        return countingIdlingResource;
     }
 
 }

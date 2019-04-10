@@ -16,7 +16,11 @@ ext {
     supportDesignVer = '28.0.0'
     gsonConverterVer = '2.0.0-beta4'
     testRunnerVer = '1.0.2'
-    espressoVer = '3.0.2'
+    testRulesVer = '1.0.2'
+    espressoCoreVer = '3.0.2'
+    espressoContribVer = '3.0.2'
+    espressoIntentsVer = '3.0.2'
+    idlingResourceVer = '3.0.2'
     dicemelonVer = '0.1.4'
 }
 
