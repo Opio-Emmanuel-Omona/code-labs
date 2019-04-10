@@ -2,7 +2,7 @@
 A project that consumes an API and displays the developers from Nairobi
 
 
-[![CircleCI](https://circleci.com/gh/Opio-Emmanuel-Omona/code-labs.svg?style=svg)](https://circleci.com/gh/Opio-Emmanuel-Omona/code-labs)
+[![Build Status](https://travis-ci.org/Opio-Emmanuel-Omona/code-labs.svg?branch=develop)](https://travis-ci.org/Opio-Emmanuel-Omona/code-labs)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e497254dfa16211fbd48/maintainability)](https://codeclimate.com/github/Opio-Emmanuel-Omona/code-labs/maintainability)
 [![codecov](https://codecov.io/gh/Opio-Emmanuel-Omona/code-labs/branch/develop/graph/badge.svg)](https://codecov.io/gh/Opio-Emmanuel-Omona/code-labs)
 
