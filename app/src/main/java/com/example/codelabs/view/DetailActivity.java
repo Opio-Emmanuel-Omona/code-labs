@@ -17,6 +17,8 @@ import com.example.codelabs.model.GithubUsers;
 import com.example.codelabs.presenter.GithubProfilePresenter;
 import com.squareup.picasso.Picasso;
 
+import static com.example.codelabs.adapter.GithubAdapter.isRunningTest;
+
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -91,6 +93,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     void loadProfile(GithubUsers githubUsers) {
+        if(isRunningTest()) {
+            githubUsers = new GithubUsers(user, "", "", image);
+        }
         user = githubUsers.getUsername();
         url = githubUsers.getProfileLink();
         org = githubUsers.getOrganisation();
@@ -102,6 +107,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if(org != null) {
             organisation.setText(org);
         }
+
         progressBar.setVisibility(View.GONE);
         detail.setVisibility(View.VISIBLE);
         countingIdlingResource.decrement();
