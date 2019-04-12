@@ -37,7 +37,7 @@ before_script:
 
 script:
 - ./gradlew build check
-- if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
+- ./gradlew createDebugCoverageReport
 - bash <(curl -s https://codecov.io/bash)
 
 after_success:
