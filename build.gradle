@@ -22,6 +22,7 @@ ext {
     espressoIntentsVer = '3.0.2'
     idlingResourceVer = '3.0.2'
     dicemelonVer = '0.1.4'
+    roboelectricVer = '4.2'
 }
 
 buildscript {

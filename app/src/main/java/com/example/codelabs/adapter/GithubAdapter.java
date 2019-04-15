@@ -13,11 +13,14 @@ import com.example.codelabs.model.GithubUsers;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+
 
 public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHolder> {
     final List<GithubUsers> githubUsersArray;
     final OnListListener myOnListListener;
-
+    private static AtomicBoolean isRunningTest;
 
     public GithubAdapter(List<GithubUsers> githubUsers, OnListListener onListListener) {
         this.githubUsersArray = githubUsers;
@@ -51,6 +54,9 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHold
 
         public MyViewHolder(View view, OnListListener onListListener) {
             super(view);
+            if(!isRunningTest()) {
+                view.setVisibility(View.GONE);
+            }
             username = view.findViewById(R.id.list_item_username);
             image = view.findViewById(R.id.profile_image);
 
@@ -63,6 +69,23 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHold
         public void onClick(View v) {
             onListListener.onItemClick(getAdapterPosition());
         }
+    }
+
+    public static synchronized boolean isRunningTest () {
+        if (null == isRunningTest) {
+            boolean istest;
+
+            try {
+                Class.forName ("android.support.test.espresso.Espresso");
+                istest = true;
+            } catch (ClassNotFoundException e) {
+                istest = false;
+            }
+
+            isRunningTest = new AtomicBoolean(istest);
+        }
+
+        return isRunningTest.get();
     }
 }
 

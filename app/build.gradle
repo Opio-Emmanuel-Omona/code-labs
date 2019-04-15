@@ -65,6 +65,7 @@ dependencies {
 
     // test dependencies
     testImplementation "junit:junit:$config.junitVer"
+    testImplementation "org.robolectric:robolectric:$config.roboelectricVer"
     androidTestImplementation "com.android.support.test:runner:$config.testRunnerVer"
     androidTestImplementation "com.android.support.test:rules:$config.testRulesVer"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$config.espressoCoreVer"
