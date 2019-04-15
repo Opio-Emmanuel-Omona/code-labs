@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.DetailActivity"
+    android:id="@+id/activity_detail"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
