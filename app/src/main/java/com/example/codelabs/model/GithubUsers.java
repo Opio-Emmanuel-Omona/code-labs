@@ -47,13 +47,21 @@ public class GithubUsers implements Parcelable {
         }
     };
 
-    public String getUsername() {  return this.username;  }
+    public String getUsername() {
+        return this.username;
+    }
 
-    public String getOrganisation() {  return this.organisation;  }
+    public String getOrganisation() {
+        return this.organisation;
+    }
 
-    public String getProfileLink() {  return this.profileLink;  }
+    public String getProfileLink() {
+        return this.profileLink;
+    }
 
-    public String getProfileImage() {  return this.profileImage;  }
+    public String getProfileImage() {
+        return this.profileImage;
+    }
 
     @Override
     public int describeContents() {
