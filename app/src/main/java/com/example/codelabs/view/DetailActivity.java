@@ -3,6 +3,7 @@ package com.example.codelabs.view;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.Snackbar;
 import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.codelabs.R;
 import com.example.codelabs.model.GithubUsers;
 import com.example.codelabs.presenter.GithubProfilePresenter;
+import com.example.codelabs.util.GithubApplication;
 import com.squareup.picasso.Picasso;
 
 import static com.example.codelabs.adapter.GithubAdapter.isRunningTest;
@@ -33,6 +35,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     String user;
     String image;
     String org;
+    GithubApplication githubApplication;
     CountingIdlingResource countingIdlingResource = new CountingIdlingResource("Main");
 
     @Override
@@ -62,7 +65,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         });
         extras();
         countingIdlingResource.increment();
-        githubProfilePresenter.getUserProfile(user);
+        if(githubApplication.isNetworkAvailable(this)) {
+            githubProfilePresenter.getUserProfile(user);
+        }else {
+            Snackbar.make(findViewById(R.id.activity_detail), "No internet connection", Snackbar.LENGTH_INDEFINITE).setDuration(60000).show();
+        }
     }
 
     public void onClick(View v) {
@@ -80,6 +87,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         profileImage = findViewById(R.id.activity_detail_profile_image);
         progressBar = findViewById(R.id.progress_bar2);
         detail = findViewById(R.id.detail);
+        githubApplication = new GithubApplication();
         detail.setVisibility(View.GONE);
     }
 

@@ -16,11 +16,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-
 public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHolder> {
     final List<GithubUsers> githubUsersArray;
     final OnListListener myOnListListener;
-    private static AtomicBoolean isRunningTest;
+    public static AtomicBoolean isRunningTest;
 
     public GithubAdapter(List<GithubUsers> githubUsers, OnListListener onListListener) {
         this.githubUsersArray = githubUsers;
@@ -29,7 +28,8 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_item, parent, false);
         return new MyViewHolder(v, myOnListListener);
     }
 
@@ -54,7 +54,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.MyViewHold
 
         public MyViewHolder(View view, OnListListener onListListener) {
             super(view);
-            if(!isRunningTest()) {
+            if(isRunningTest()) {
                 view.setVisibility(View.GONE);
             }
             username = view.findViewById(R.id.list_item_username);

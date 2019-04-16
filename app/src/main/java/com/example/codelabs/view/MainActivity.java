@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.Snackbar;
 import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.example.codelabs.adapter.GithubAdapter;
 import com.example.codelabs.R;
 import com.example.codelabs.model.GithubUsers;
 import com.example.codelabs.presenter.GithubPresenter;
+import com.example.codelabs.util.GithubApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private List<? extends GithubUsers> githubUsersList;
     Parcelable state;
+    GithubApplication githubApplication;
     CountingIdlingResource countingIdlingResource = new CountingIdlingResource("Main");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 loadData(githubUsers);
             }
         });
-        countingIdlingResource.increment();
-        githubPresenter.getUsers();
+
+        if(githubApplication.isNetworkAvailable(this)) {
+            countingIdlingResource.increment();
+            githubPresenter.getUsers();
+            countingIdlingResource.decrement();
+        }else {
+            Snackbar.make(findViewById(R.id.cordinator), "No internet connection", Snackbar.LENGTH_INDEFINITE).setDuration(60000).show();
+        }
     }
 
     private void loadData(List<GithubUsers> githubUsers) {
@@ -68,13 +78,12 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(false);
 
         progressBar.setVisibility(View.GONE);
-        countingIdlingResource.decrement();
-
     }
 
     public void initRecyclerView() {
         recyclerView = findViewById(R.id.my_recycler_view);
         progressBar = findViewById(R.id.progress_bar1);
+        githubApplication = new GithubApplication();
         recyclerView.setHasFixedSize(true);
         configChanged();
     }
@@ -123,9 +132,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (state != null) {
             recyclerView.getLayoutManager().onRestoreInstanceState(state);
-            countingIdlingResource.increment();
             loadData((List<GithubUsers>) githubUsersList);
-
         }
     }
 
