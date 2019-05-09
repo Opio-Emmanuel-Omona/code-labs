@@ -18,7 +18,7 @@ import com.example.codelabs.adapter.GithubAdapter;
 import com.example.codelabs.R;
 import com.example.codelabs.model.GithubUsers;
 import com.example.codelabs.presenter.GithubPresenter;
-import com.example.codelabs.util.GithubApplication;
+import com.example.codelabs.util.NetworkUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private List<? extends GithubUsers> githubUsersList;
     Parcelable state;
-    GithubApplication githubApplication;
+    NetworkUtility githubApplication;
     CountingIdlingResource countingIdlingResource = new CountingIdlingResource("Main");
 
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     public void initRecyclerView() {
         recyclerView = findViewById(R.id.my_recycler_view);
         progressBar = findViewById(R.id.progress_bar1);
-        githubApplication = new GithubApplication();
+        githubApplication = new NetworkUtility();
         recyclerView.setHasFixedSize(true);
         configChanged();
     }

@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class GithubApplication {
+public class NetworkUtility {
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
